@@ -1,0 +1,18 @@
+network:
+  rpc_url: "https://your-quicknode-pro-url" # QuickNode Pro
+  chain_id: 1
+  governor_private_key: "0x..." # Must have permission to call setFeeTiers on the Hook
+
+contracts:
+  pool_manager: "0x000000000004444149740358d123456789ABCDEF" # Uniswap V4 PoolManager address
+  hook_address: "0x..." # Your deployed Hook address
+  pool_id: "0x..." # Target PoolId (bytes32)
+
+market_assumptions:
+  kappa: 1.0e-12 # Attacker's hedging cost
+  v_swap_nominal: 1000000 # Expected size of a single large swap
+  jit_gas_usage: 280000 # Estimated total gas consumption of the JIT attack atomic bundle
+
+strategy:
+  # Injection ratio tiers in Basis Points (BP): 500 = injected 5% of the current pool's liquidity
+  ratio_tiers: [100, 500, 1000, 2000, 5000]
