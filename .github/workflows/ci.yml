@@ -28,11 +28,14 @@ jobs:
     needs: slither
     steps:
       - uses: actions/checkout@v4
-      - name: Install Foundry (foundryup)
+      - name: Install Foundry (foundryup) and verify
         run: |
-          curl -L https://foundry.paradigm.xyz | bash
-      - name: Add Foundry to PATH
-        run: echo "$HOME/.foundry/bin" >> $GITHUB_PATH
+          set -eux
+          curl -L https://foundry.paradigm.xyz | bash -s -- -y
+          echo "$HOME/.foundry/bin" >> $GITHUB_PATH
+          export PATH="$HOME/.foundry/bin:$PATH"
+          # verify installation
+          forge --version
       - name: Install Python deps (for other tooling)
         run: python -m pip install -r requirements.txt || true
       - name: Run forge tests
