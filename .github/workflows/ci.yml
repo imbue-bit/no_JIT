@@ -33,10 +33,8 @@ jobs:
           set -eux
           # install foundryup installer script
           curl -L https://foundry.paradigm.xyz | bash -s -- -y
-          # source bashrc to activate foundryup in PATH
-          source $HOME/.bashrc
-          # now run foundryup to install the full Foundry toolchain
-          foundryup -y
+          # run the foundryup binary directly to avoid non-interactive shell issues
+          "$HOME/.foundry/bin/foundryup" -y
           # add foundry to GITHUB_PATH for subsequent steps
           echo "$HOME/.foundry/bin" >> $GITHUB_PATH
           # verify installation
